@@ -7,7 +7,7 @@ def home():
     dati = {
         'nome': 'Awsaf Æ7',
         'descrizione': 'Editor & Website builder | Join my discord if you want free overlays, comps, presets and for other things!!',
-         'views_totali': 150000,
+         'views_totali': 500k,
         # Link social reali per i pulsanti rotondi/colorati
         'link_discord': 'https://discord.gg/9ADy3MVzZ',
         'link_tiktok': 'https://www.tiktok.com/@awsaf.ae?is_from_webapp=1&sender_device=pc',
