@@ -7,7 +7,7 @@
     
     <!-- Librerie esterne per le icone ufficiali e i font del layout -->
     <link rel="stylesheet" href="https://cloudflare.com">
-    <!-- Libreria per le animazioni di ingresso (CSS) -->
+    <!-- 🔴 AGGIUNTO: Libreria per le animazioni di ingresso (CSS) -->
     <link rel="stylesheet" href="https://unpkg.com" />
     <link href="https://googleapis.com" rel="stylesheet">
 
@@ -66,35 +66,6 @@
             margin-bottom: 35px;
             font-weight: 500;
             text-shadow: 0 2px 8px rgba(0,0,0,0.7);
-        }
-
-        /* 🔴 STILE DEL CONTATORE DI VISUALIZZAZIONI (STILE DONVISION) 🔴 */
-        .views-counter-box {
-            background: rgba(255, 59, 48, 0.03);
-            border: 1px dashed rgba(255, 59, 48, 0.2);
-            padding: 15px 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            display: inline-block;
-            width: 100%;
-            text-align: left;
-        }
-        .views-label {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem;
-            color: #ff3b30;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        .views-number {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #ffffff;
-            line-height: 1;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
 
         /* CONTENITORE PULSANTI SOCIAL COLORATI AVANZATI */
@@ -215,17 +186,11 @@
         
         <!-- PARTE SINISTRA: TESTI PROTETTI, ICONE E RETTANGOLI CON I FILTRI ANIME (data-aos) -->
         <div class="content-left">
-            <!-- Animazione testo: scivola da sinistra -->
+            <!-- 🔴 Animazione testo: scivola da sinistra -->
             <h1 class="hero-title" data-aos="fade-right" data-aos-duration="1000">{{ utente.nome }}</h1>
             <p class="hero-desc" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1000">{{ utente.descrizione }}</p>
 
-            <!-- IL QUADRO DELLE VIEWS CON L'ID PER L'ANIMAZIONE -->
-            <div class="views-counter-box" data-aos="fade-right" data-aos-delay="300" data-aos-duration="1000">
-                <div class="views-label"><i class="fa-solid fa-eye"></i> Total Social Views</div>
-                <div class="views-number" id="counter" data-target="150000">0</div>
-            </div>
-
-            <!-- Animazione tasti social: comparsa dal basso -->
+            <!-- 🔴 Animazione tasti social: comparsa dal basso -->
             <div class="social-buttons-box" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">
                 <a href="{{ utente.link_discord }}" class="social-box-btn btn-discord" target="_blank">
                     <i class="fa-brands fa-discord"></i> Discord
@@ -238,10 +203,39 @@
                 </a>
             </div>
 
-            <!-- Animazione rettangoli: comparsa dal basso un po' ritardata -->
+            <!-- 🔴 Animazione rettangoli: comparsa dal basso un po' ritardata -->
             <div class="links-wrapper" data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000">
                 <a href="{{ utente.link_workflow }}" class="card-link" target="_blank">
                     <i class="fa-solid fa-wand-magic-sparkles card-icon"></i>
                     Workflow Enhancer
                     <i class="fa-solid fa-ellipsis-vertical dots-right"></i>
                 </a>
+                <a href="{{ utente.link_downgrade }}" class="card-link" target="_blank">
+                    <i class="fa-solid fa-file-arrow-down card-icon"></i>
+                    AE Downgrade File
+                    <i class="fa-solid fa-ellipsis-vertical dots-right"></i>
+                </a>
+                <a href="{{ utente.link_wtm_tiktok }}" class="card-link" target="_blank">
+                    <i class="fa-brands fa-tiktok card-icon"></i>
+                    WTM Tiktok Method
+                    <i class="fa-solid fa-ellipsis-vertical dots-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- PARTE DESTRA: 🔴 Animazione immagine di Cristiano Ronaldo: scivola da destra -->
+        <div class="content-right" data-aos="fade-left" data-aos-duration="1200">
+            <img src="/static/avatar.png" alt="Profile" class="profile-img">
+        </div>
+    </main>
+
+    <!-- 🔴 AGGIUNTO: Script JavaScript in fondo per calcolare e attivare le animazioni all'ingresso -->
+    <script src="https://unpkg.com"></script>
+    <script>
+        AOS.init({
+            offset: 20,
+            once: true /* L'animazione avviene solo la prima volta che entri */
+        });
+    </script>
+</body>
+</html>
