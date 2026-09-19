@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ utente.nome }} - Portfolio</title>
+    
+    <!-- Librerie esterne per le icone ufficiali e i font del layout -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <!-- 🔴 AGGIUNTO: Libreria per le animazioni di ingresso (CSS) -->
+    <link rel="stylesheet" href="https://unpkg.com" />
+    <link href="https://googleapis.com" rel="stylesheet">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        /* SFONDO GRADIENTE CINEMATOGRAFICO CONTINUO (Stile Senpai Spider) */
+        body {
+            background: linear-gradient(105deg, #070404 35%, #1f0808 70%, #4a0d0d 100%);
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* STRUTTURA DEL CONTENITORE GENERALE */
+        .main-container {
+            display: flex;
+            max-width: 100%;
+            width: 100%;
+            margin: auto;
+            padding-left: 80px; /* Spazio elegante a sinistra per i testi */
+            align-items: center;
+            justify-content: space-between;
+            flex: 1;
+            position: relative;
+        }
+
+        /* COLONNA SINISTRA: AREA TESTI E PULSANTI PROTETTI */
+        .content-left {
+            flex: 1;
+            max-width: 550px;
+            position: relative;
+            z-index: 999; /* Forza tutti i tasti e testi a stare sopra l'immagine */
+            padding: 40px 0;
+        }
+        
+        /* Titolo Principale della Bio */
+        .hero-title {
+            font-family: 'Cinzel', serif;
+            font-size: 5.5rem;
+            line-height: 0.95;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+        }
+
+        /* STRUTTURA DELLA DESCRIZIONE INGRANDITA */
+        .hero-desc {
+            color: #e4e4e7;
+            font-size: 1.35rem;
+            line-height: 1.5;
+            margin-bottom: 35px;
+            font-weight: 500;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+        }
+
+        /* CONTENITORE PULSANTI SOCIAL COLORATI AVANZATI */
+        .social-buttons-box {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+        }
+        .social-box-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+        .social-box-btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn-discord { background-color: #5865F2; }
+        .btn-discord:hover { box-shadow: 0 0 15px rgba(88, 101, 242, 0.6); }
+        .btn-tiktok { background-color: #000000; border: 1px solid rgba(255,255,255,0.2); }
+        .btn-tiktok:hover { box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); }
+        .btn-youtube { background-color: #FF0000; }
+        .btn-youtube:hover { box-shadow: 0 0 15px rgba(255, 0, 0, 0.6); }
+
+        /* SCATOLA DEI RETTANGOLI DEI LINK CON BORDI ROSSI ACCESI */
+        .links-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .card-link {
+            display: flex;
+            align-items: center;
+            background: rgba(7, 4, 4, 0.85); /* Sfondo scuro per contrasto */
+            border: 1px solid rgba(255, 59, 48, 0.4); /* Bordo rosso coordinato */
+            padding: 18px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .card-link:hover {
+            background: rgba(255, 59, 48, 0.15);
+            border-color: #ff3b30;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 59, 48, 0.25);
+        }
+        .card-icon {
+            margin-right: 15px;
+            font-size: 1.3rem;
+            color: #ff3b30;
+            width: 25px;
+            text-align: center;
+        }
+        .dots-right {
+            position: absolute;
+            right: 24px;
+            color: #8e8e93;
+        }
+
+        /* COLONNA DESTRA: IMMAGINE PINZATA SUL BORDO SCORREVOLE DESTRO */
+        .content-right {
+            flex: 1.4;
+            height: 100vh;
+            display: flex;
+            justify-content: flex-end; /* Spinge la foto all'estrema destra */
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Immagine con doppia maschera lineare progressiva per fondersi nel gradiente */
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: right center;
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 25%, rgba(0,0,0,1) 80%),
+                                linear-gradient(to bottom, rgba(0,0,0,1) 85%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 25%, rgba(0,0,0,1) 80%),
+                        linear-gradient(to bottom, rgba(0,0,0,1) 85%, transparent 100%);
+            -webkit-mask-composite: source-in;
+            mask-composite: intersect;
+        }
+
+        /* LAYOUT ADATTIVO RESPONSIVE PER CELLULARI */
+        @media (max-width: 900px) {
+            body { background: linear-gradient(to bottom, #070404 40%, #1f0808 75%, #4a0d0d 100%); }
+            .main-container { flex-direction: column-reverse; text-align: center; gap: 40px; padding: 40px 20px; padding-left: 20px; }
+            .content-left { max-width: 100%; width: 100%; }
+            .social-buttons-box { justify-content: center; }
+            .content-right { width: 100%; height: 350px; }
+            .profile-img { 
+                height: 350px; 
+                -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,1) 45%);
+                mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,1) 45%);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="main-container">
+        
+        <!-- PARTE SINISTRA: TESTI PROTETTI, ICONE E RETTANGOLI CON I FILTRI ANIME (data-aos) -->
+        <div class="content-left">
+            <!-- 🔴 Animazione testo: scivola da sinistra -->
+            <h1 class="hero-title" data-aos="fade-right" data-aos-duration="1000">{{ utente.nome }}</h1>
+            <p class="hero-desc" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1000">{{ utente.descrizione }}</p>
+
+            <!-- 🔴 Animazione tasti social: comparsa dal basso -->
+            <div class="social-buttons-box" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">
+                <a href="{{ utente.link_discord }}" class="social-box-btn btn-discord" target="_blank">
+                    <i class="fa-brands fa-discord"></i> Discord
+                </a>
+                <a href="{{ utente.link_tiktok }}" class="social-box-btn btn-tiktok" target="_blank">
+                    <i class="fa-brands fa-tiktok"></i> TikTok
+                </a>
+                <a href="{{ utente.link_youtube }}" class="social-box-btn btn-youtube" target="_blank">
+                    <i class="fa-brands fa-youtube"></i> YouTube
+                </a>
+            </div>
+
+            <!-- 🔴 Animazione rettangoli: comparsa dal basso un po' ritardata -->
+            <div class="links-wrapper" data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000">
+                <a href="{{ utente.link_workflow }}" class="card-link" target="_blank">
+                    <i class="fa-solid fa-wand-magic-sparkles card-icon"></i>
+                    Workflow Enhancer
+                    <i class="fa-solid fa-ellipsis-vertical dots-right"></i>
+                </a>
+                <a href="{{ utente.link_downgrade }}" class="card-link" target="_blank">
+                    <i class="fa-solid fa-file-arrow-down card-icon"></i>
+                    AE Downgrade File
+                    <i class="fa-solid fa-ellipsis-vertical dots-right"></i>
+                </a>
+                <a href="{{ utente.link_wtm_tiktok }}" class="card-link" target="_blank">
+                    <i class="fa-brands fa-tiktok card-icon"></i>
+                    WTM Tiktok Method
+                    <i class="fa-solid fa-ellipsis-vertical dots-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- PARTE DESTRA: 🔴 Animazione immagine di Cristiano Ronaldo: scivola da destra -->
+        <div class="content-right" data-aos="fade-left" data-aos-duration="1200">
+            <img src="/static/avatar.png" alt="Profile" class="profile-img">
+        </div>
+    </main>
+
+    <!-- 🔴 AGGIUNTO: Script JavaScript in fondo per calcolare e attivare le animazioni all'ingresso -->
+    <script src="https://unpkg.com"></script>
+    <script>
+        AOS.init({
+            offset: 20,
+            once: true /* L'animazione avviene solo la prima volta che entri */
+        });
+    </script>
+</body>
+</html>
